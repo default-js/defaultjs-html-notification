@@ -7,6 +7,16 @@ module.exports = {
 	// frameworks to use
 	// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
 	frameworks : [ "jasmine" ],
+	plugins : [
+		"karma-webpack",
+		"karma-jasmine",
+		"karma-coverage",
+		"karma-html2js-preprocessor",
+		"karma-sourcemap-loader",
+		"karma-firefox-launcher",
+		"karma-chrome-launcher",
+		"karma-safari-launcher"
+	],
 	// list of files / patterns to load in the browser
 	files : [
 		//"src/**/*.js",

@@ -2,7 +2,7 @@ const messageId = find("#message-id").first();
 const title = find("#message-title").first();
 const content = find("#message-content").first();
 const channel = find("#message-channel").first();
-const API = intranet.core.notification;
+const API = defaultjs.html.notification.API;
 
 function notify() {
 	console.log("publish message");
