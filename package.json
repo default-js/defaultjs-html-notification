@@ -31,7 +31,13 @@
 		"webpack-dev-server": "^3.11.2",
 		"webpack-merge": "^4.2.2"
 	},
-	"dependencies": {},
+	"dependencies": {
+		"@default-js/defaultjs-common-utils": "^0.14.1",
+		"@default-js/defaultjs-expression-language": "^1.0.0-beta.14",
+		"@default-js/defaultjs-extdom": "^1.0.4",
+		"@default-js/defaultjs-html-components": "^2.0.0",
+		"@default-js/defaultjs-template-language": "^1.1.4"
+	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/default-js/defaultjs-html-notification.git"

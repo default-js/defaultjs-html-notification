@@ -1,4 +1,4 @@
-import { uuid } from "./Imports";
+import {uuid} from "@default-js/defaultjs-common-utils/src/UUID";
 import { } from "./Constants";
 import { EVENT_SHOW_MESSAGE, EVENT_DISPLAY_REMOVE_MESSAGE } from "./Events";
 

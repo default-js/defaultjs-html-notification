@@ -1,4 +1,6 @@
-import { Component, defineComponent, privateProperty, Renderer, Template } from "./Imports";
+import Component from '@default-js/defaultjs-html-components/src/Component';
+import { define } from '@default-js/defaultjs-html-components/src/utils/DefineComponentHelper';
+import { privateProperty } from '@default-js/defaultjs-common-utils/src/PrivateProperty';
 import { NODENAME_MESSAGE, BASE_TEMPLATE_PATH } from "./Constants";
 import { EVENT_SHOW_MESSAGE, EVENT_CLOSE_MESSAGE } from "./Events";
 import { closeNotify } from "./API";
@@ -66,6 +68,6 @@ class Message extends Component {
 
 }
 
-defineComponent(Message);
+define(Message);
 
 export default Message;

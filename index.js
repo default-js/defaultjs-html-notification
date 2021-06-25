@@ -4,3 +4,5 @@ import Display from "./src/Display";
 import Count from "./src/Count";
 import {notify, closeNotify} from "./src/API";
 
+export {notify, closeNotify, SETTING, Message, Display, Count}
+
