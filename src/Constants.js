@@ -1,6 +1,6 @@
-export const BASE_TEMPLATE_PATH = "/etc/clientlibs/intranet/web-api/notification/tpl/";
+export const BASE_TEMPLATE_PATH = "/templates/notification/";
 
-export const NODENAME_BASE = "intranet-notification";
+export const NODENAME_BASE = "d-notification";
 
 export const NODENAME_DISPLAY = `${NODENAME_BASE}-display`;
 export const NODENAME_MESSAGE = `${NODENAME_BASE}-message`;

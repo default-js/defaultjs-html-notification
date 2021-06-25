@@ -1,36 +1,41 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Notify Sample</title>
-</head>
-<body>
-	<div>
-		<input id="message-id" type="text" name="id">
-		<br/>
-		<input id="message-title" type="text" name="title">
-		<br />
-		<textarea id="message-content" rows="5" name="content"></textarea>
-		<br />
-		<input id="message-channel" type="text" name="channel">
-		<br />
-		<button onclick="notify()">notify</button>
-	</div>
-	<div>
-		<button onclick="toggleAuto(this)">start auto Messaging</button>
-	</div>
-	<div>
-		<h2>Channel all</h2>
-		<intranet-notification-display channel=".*" message-ttl message-ttl-mode="remove"></intranet-notification-display>
-	</div>	
-	<div>
-		<h2>Channel test</h2>
-		<intranet-notification-display channel="^test$"></intranet-notification-display>
-	</div>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Notify Sample</title>
+  </head>
+  <body>
+    <div>
+      <input id="message-id" type="text" name="id" />
+      <br />
+      <input id="message-title" type="text" name="title" />
+      <br />
+      <textarea id="message-content" rows="5" name="content"></textarea>
+      <br />
+      <input id="message-channel" type="text" name="channel" />
+      <br />
+      <button onclick="notify()">notify</button>
+    </div>
+    <div>
+      <button onclick="toggleAuto(this)">start auto Messaging</button>
+    </div>
+    <div>
+      <h2>Channel all</h2>
+      <d-notification-display
+        channel=".*"
+        message-ttl
+        message-ttl-mode="remove"
+      ></d-notification-display>
+    </div>
+    <div>
+      <h2>Channel test</h2>
+      <d-notification-display channel="^test$"></d-notification-display>
+    </div>
 
-
-	<script type="text/javascript" src="js/intranet-defaultjs-bundle.js"></script>
-	<script type="text/javascript" src="intranet-notification.js"></script>
-	<script type="text/javascript" src="main.js"></script>
-</body>
+    <script
+      type="text/javascript"
+      src="defaultjs-html-notification.js"
+    ></script>
+    <script type="text/javascript" src="main.js"></script>
+  </body>
 </html>
