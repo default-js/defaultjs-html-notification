@@ -1,5 +1,4 @@
 import {toNodeName} from "@default-js/defaultjs-html-components/src/utils/DefineComponentHelper"
-export const BASE_TEMPLATE_PATH = "/templates/notification/";
 
 export const NODENAME_BASE =  toNodeName("notification");
 
