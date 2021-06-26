@@ -1,53 +1,89 @@
 *, *::before, *::after{
-    box-sizing: border-box;
+    box-sizing: border-box;    
+    font-family: 'Segoe UI',sans-serif,  Arial, Helvetica;
 }
 
 html, body {
     font-size: 16px;
 }
 
-d-notification-display {
-    display: block;
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.inputs {
+    display: flex;
+    gap: 1rem;
+}
+.inputs > * {
+    flex: 1 1 auto;    
     padding: 1rem;
-    margin: 1rem auto;
-    border: solid 0.1em lightgray;
-    border-radius: 0.2rem;
+    border: solid 0.1rem lightgray;
+}
+.inputs .form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-d-notification-message {
+.inputs label,
+.inputs input,
+.inputs textarea,
+.inputs button {
     display: block;
-    padding: 1rem;    
-    margin: 0 1rem 1rem 1rem;
-    border: solid 0.1em darkgray;
-    background: lightgray;
-    border-radius: 0.2rem;
+    flex: 1 1 auto;
 }
 
-d-notification-message:last-child {
-    margin-bottom: 0;
+.channel-summaries{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-d-notification-message .message-header {
+.channels{
+    flex: 1 1 auto;
     display: flex;
     flex-direction: row;
+    gap: 1rem;
+    
+    min-height: max-content;
+
 }
-d-notification-message .message-header > * {
+
+.channel {
+    display: flex;
+    flex-direction: column;
     flex: 1 1 auto;
+    width: 100%;
+}
+.channel > d-notification-display {
+    flex: 1 1 auto;
+} 
+
+
+d-notification-display.site-notifications {
+	position: fixed;    
+	top: 0;
+	left: 50%;
+	translate: -50% 0%;
+	z-index: 1000;
+    border: 0;
     width: auto;
 }
 
-d-notification-message .message-header-close {
-    flex: 0 0 auto;
-    width: min-content;
-    align-self: baseline;
-    background-color: transparent;
-    border: 0;
-    border-radius: 0.2rem;
+d-notification-display.site-notifications[state-empty] {
+    display: none;
 }
-d-notification-message .message-header-close:hover,
-d-notification-message .message-header-close:active,
-d-notification-message .message-header-close:focus {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: darkred;
-    transform: scale(1.2)
-} 
+d-notification-display.site-notifications * {
+    font-size: 0.8rem;
+}
+
+d-notification-display.site-notifications d-notification-message {
+    position: relative;
+    width: max-content;
+}
+
+
+

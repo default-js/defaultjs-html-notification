@@ -1,7 +1,7 @@
 <div class="message-body">
 	<div class="message-header">
 		<h3>${title}</h3>
-		<button class="message-header-close" @click:delegate="intranet-notification-event:close-message">&times;</button>
+		<button class="message-header-close" @click:delegate="d-notification-event:close-message">&times;</button>
 	</div>
 	<div class="message-content" jstl-insecure-html>${content}</div>
 	<div class="message-footer" jstl-if="${actions instanceof Array}" jstl-foreach="${actions}" jstl-foreach-var="action">		

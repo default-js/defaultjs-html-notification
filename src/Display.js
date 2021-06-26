@@ -4,9 +4,9 @@ import { Renderer, Template } from "@default-js/defaultjs-template-language";
 import { privateProperty } from "@default-js/defaultjs-common-utils/src/PrivateProperty";
 import SETTING from "./Setting";
 import { NODENAME_DISPLAY, NODENAME_MESSAGE } from "./Constants";
-import { EVENT_SHOW_MESSAGE, EVENT_DISPLAY_REMOVE_MESSAGE, EVENT_CLOSE_MESSAGE, EVENT_DISPLAY_MESSAGE_REMOVED } from "./Events";
+import { EVENT_SHOW_MESSAGE, EVENT_DISPLAY_REMOVE_MESSAGE, EVENT_CLOSE_MESSAGE, EVENT_DISPLAY_MESSAGE_REMOVED, EVENT_DISPLAY_EMPTY, EVENT_DISPLAY_MESSAGE_ADDED } from "./Events";
 import Message from "./Message";
-import { acceptMessageOnChannel, loadTemplate} from "./Utils";
+import { acceptMessageOnChannel, loadTemplate } from "./Utils";
 
 const body = document.body;
 
@@ -16,6 +16,7 @@ const ATTRIBUTE_MESSAGE_TEMPLATE = "message-template";
 const ATTRIBUTE_MODE = "mode"; //append, prepend | default: append
 const ATTRIBUTE_MESSAGE_TTL = "message-ttl";
 const ATTRIBUTE_MESSAGE_TTL_MODE = "message-ttl-mode"; //remove, close | default: close
+const ATTRIBUTE_STATE_EMPTY = "state-empty";
 const ATTRIBUTES = [];
 
 const MARKER_CONTENT = "content";
@@ -70,6 +71,14 @@ const clearMessageTTLTimeout = (message) => {
 	if (timeout) clearTimeout(timeout);
 };
 
+const emptyCheck = async (display) => {
+	const messages = await display.messages;
+	if(messages.length == 0){
+		display.trigger(EVENT_DISPLAY_EMPTY);
+		display.attr(ATTRIBUTE_STATE_EMPTY, "");
+	}	
+};
+
 class Display extends Component {
 	static get NODENAME() {
 		return NODENAME_DISPLAY;
@@ -100,6 +109,8 @@ class Display extends Component {
 				this.removeMessage(target instanceof Message ? target : detail, false);
 			});
 		}
+
+		emptyCheck(this);
 	}
 
 	async destroy() {
@@ -114,6 +125,14 @@ class Display extends Component {
 		const { ready, content } = this;
 		await ready;
 		return content.find(`${NODENAME_MESSAGE}[message-id="${messageId}"]`).first();
+	}
+
+	get messages() {
+		return (async () => {
+			const { ready, content } = this;
+			await ready;
+			return content.find(`${NODENAME_MESSAGE}`);
+		})();
 	}
 
 	/**
@@ -136,6 +155,7 @@ class Display extends Component {
 		else content.append(message);
 
 		startMessageTTL(this, message);
+		this.attr(ATTRIBUTE_STATE_EMPTY, null);
 	}
 
 	/**
@@ -158,8 +178,10 @@ class Display extends Component {
 				this.trigger(EVENT_DISPLAY_MESSAGE_REMOVED, message.messageData);
 			}
 		}
+
+		emptyCheck(this);
 	}
-}
+};
 
 define(Display);
 
