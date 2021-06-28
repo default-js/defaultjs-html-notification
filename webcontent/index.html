@@ -7,48 +7,60 @@
 		<link rel="stylesheet" href="/css/notification.css" />
 	</head>
 	<body>
-    <d-notification-display class="site-notifications" message-ttl="5000" message-ttl-mode="remove"></d-notification-display>
+		<d-notification-display
+			class="site-notifications"
+			message-ttl="5000"
+			message-ttl-mode="remove"
+		></d-notification-display>
 		<div class="inputs">
 			<div class="form">
-        <label for="message-id">ID</label>
+				<label for="message-id">ID</label>
 				<input id="message-id" type="text" name="id" />
 				<br />
-        <label for="message-title">TITEL</label>
+				<label for="message-title">TITEL</label>
 				<input id="message-title" type="text" name="title" />
 				<br />
-        <label for="message-content">CONTENT</label>
-				<textarea id="message-content" rows="5" name="content"></textarea>
+				<label for="message-content">CONTENT</label>
+				<textarea
+					id="message-content"
+					rows="5"
+					name="content"
+				></textarea>
 				<br />
-        <label for="message-channel">CHANNEL</label>
+				<label for="message-channel">CHANNEL</label>
 				<input id="message-channel" type="text" name="channel" />
 				<br />
 				<button onclick="notify()">notify</button>
 			</div>
 			<div>
 				<button onclick="toggleAuto(this)">start auto Messaging</button>
-        <button onclick="toggleRandomAuto(this)">start auto random Messaging</button>
+				<button onclick="toggleRandomAuto(this)">
+					start auto random Messaging
+				</button>
 			</div>
 		</div>
-		<div class="channel-summaries">
-      
-    </div>
+		<div class="channel-summaries"></div>
 		<div class="channels">
 			<div class="channel">
 				<h2>Channel all</h2>
-				<d-notification-display channel=".*" message-ttl message-ttl-mode="remove"></d-notification-display>
+				<d-notification-display
+					channel=".*"
+					message-ttl
+					message-ttl-mode="remove"
+				></d-notification-display>
 			</div>
 			<div class="channel">
 				<h2>Channel A</h2>
 				<d-notification-display channel="^A$"></d-notification-display>
 			</div>
-      <div class="channel">
+			<div class="channel">
 				<h2>Channel B</h2>
 				<d-notification-display channel="^B$"></d-notification-display>
 			</div>
 		</div>
 
 		<script type="text/javascript" src="browser-bundle.js"></script>
-    <script type="text/javascript" src="lorem-ipsum.js"></script>
+		<script type="text/javascript" src="lorem-ipsum.js"></script>
 		<script type="text/javascript" src="main.js"></script>
 	</body>
 </html>

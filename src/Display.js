@@ -4,7 +4,14 @@ import { Renderer, Template } from "@default-js/defaultjs-template-language";
 import { privateProperty } from "@default-js/defaultjs-common-utils/src/PrivateProperty";
 import SETTING from "./Setting";
 import { NODENAME_DISPLAY, NODENAME_MESSAGE } from "./Constants";
-import { EVENT_SHOW_MESSAGE, EVENT_DISPLAY_REMOVE_MESSAGE, EVENT_CLOSE_MESSAGE, EVENT_DISPLAY_MESSAGE_REMOVED, EVENT_DISPLAY_EMPTY, EVENT_DISPLAY_MESSAGE_ADDED } from "./Events";
+import {
+	EVENT_SHOW_MESSAGE,
+	EVENT_DISPLAY_REMOVE_MESSAGE,
+	EVENT_CLOSE_MESSAGE,
+	EVENT_DISPLAY_MESSAGE_REMOVED,
+	EVENT_DISPLAY_EMPTY,
+	EVENT_DISPLAY_MESSAGE_ADDED,
+} from "./Events";
 import Message from "./Message";
 import { acceptMessageOnChannel, loadTemplate } from "./Utils";
 
@@ -13,6 +20,7 @@ const body = document.body;
 const ATTRIBUTE_CHANNEL = "channel";
 const ATTRIBUTE_TEMPLATE = "template";
 const ATTRIBUTE_MESSAGE_TEMPLATE = "message-template";
+const ATTRIBUTE_DYNAMIC_MESSAGE_TEMPLATE = "dynamic-message-template";
 const ATTRIBUTE_MODE = "mode"; //append, prepend | default: append
 const ATTRIBUTE_MESSAGE_TTL = "message-ttl";
 const ATTRIBUTE_MESSAGE_TTL_MODE = "message-ttl-mode"; //remove, close | default: close
@@ -38,7 +46,8 @@ const buildMessage = async (display, message) => {
 	const setting = message.setting || {};
 	if (typeof setting.click === "function") element.on("click", setting.click);
 
-	if (typeof setting.close === "function") element.on(EVENT_CLOSE_MESSAGE, setting.close);
+	if (typeof setting.close === "function")
+		element.on(EVENT_CLOSE_MESSAGE, setting.close);
 
 	return element;
 };
@@ -47,7 +56,7 @@ const messageTemplate = async (display) => {
 	//@TODO dynamic template selection by message data
 	let template = privateProperty(display, PRIVATE_MESSAGETEMPLATE);
 	if (!template) {
-		template = await loadTemplate(display.attr(ATTRIBUTE_TEMPLATE));
+		template = await loadTemplate(display.attr(ATTRIBUTE_MESSAGE_TEMPLATE));
 		privateProperty(display, PRIVATE_MESSAGETEMPLATE, template);
 	}
 	return template;
@@ -60,8 +69,16 @@ const messageTTLHandle = (display, messageId, ttlMode) => {
 
 const startMessageTTL = (display, message) => {
 	if (display.hasAttribute(ATTRIBUTE_MESSAGE_TTL) || message.ttl) {
-		const time = message.ttl || parseInt(display.attr(ATTRIBUTE_MESSAGE_TTL) || SETTING.messageTTL);
-		const timeout = setTimeout(messageTTLHandle, time, display, message.messageId, message.ttlMode);
+		const time =
+			message.ttl ||
+			parseInt(display.attr(ATTRIBUTE_MESSAGE_TTL) || SETTING.messageTTL);
+		const timeout = setTimeout(
+			messageTTLHandle,
+			time,
+			display,
+			message.messageId,
+			message.ttlMode
+		);
 		TIMEOUTS_MESSAGE_TTL.set(message, timeout);
 	}
 };
@@ -73,10 +90,10 @@ const clearMessageTTLTimeout = (message) => {
 
 const emptyCheck = async (display) => {
 	const messages = await display.messages;
-	if(messages.length == 0){
+	if (messages.length == 0) {
 		display.trigger(EVENT_DISPLAY_EMPTY);
 		display.attr(ATTRIBUTE_STATE_EMPTY, "");
-	}	
+	}
 };
 
 class Display extends Component {
@@ -101,12 +118,16 @@ class Display extends Component {
 
 			body.on(EVENT_SHOW_MESSAGE, (event) => {
 				const message = event.detail;
-				if (acceptMessageOnChannel(this.channel, message)) this.addMessage(message);
+				if (acceptMessageOnChannel(this.channel, message))
+					this.addMessage(message);
 			});
 
 			body.on(EVENT_DISPLAY_REMOVE_MESSAGE, (event) => {
 				const { target, detail } = event;
-				this.removeMessage(target instanceof Message ? target : detail, false);
+				this.removeMessage(
+					target instanceof Message ? target : detail,
+					false
+				);
 			});
 		}
 
@@ -124,7 +145,9 @@ class Display extends Component {
 	async getMessage(messageId) {
 		const { ready, content } = this;
 		await ready;
-		return content.find(`${NODENAME_MESSAGE}[message-id="${messageId}"]`).first();
+		return content
+			.find(`${NODENAME_MESSAGE}[message-id="${messageId}"]`)
+			.first();
 	}
 
 	get messages() {
@@ -142,7 +165,8 @@ class Display extends Component {
 		const { ready, content } = this;
 		await ready;
 
-		if (!(message instanceof Message)) message = await buildMessage(this, message);
+		if (!(message instanceof Message))
+			message = await buildMessage(this, message);
 
 		const current = await this.getMessage(message.messageId);
 		if (current) {
@@ -175,13 +199,16 @@ class Display extends Component {
 			if (triggerClose) message.trigger(EVENT_CLOSE_MESSAGE);
 			else {
 				message.remove();
-				this.trigger(EVENT_DISPLAY_MESSAGE_REMOVED, message.messageData);
+				this.trigger(
+					EVENT_DISPLAY_MESSAGE_REMOVED,
+					message.messageData
+				);
 			}
 		}
 
 		emptyCheck(this);
 	}
-};
+}
 
 define(Display);
 
