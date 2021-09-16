@@ -1,5 +1,6 @@
 {
-	"name": "@default-js/defaultjs-html-notification",
+	"name": "@default-js/defaultjs-html-notification",	
+	"buildname": "defaultjs-html-notification",
 	"version": "1.0.1",
 	"main": "./index.js",
 	"scripts": {

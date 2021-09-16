@@ -9,7 +9,7 @@ module.exports = {
 	basePath : "",
 	// frameworks to use
 	// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-	frameworks : [ "jasmine" ],
+	frameworks : [ "jasmine", "webpack" ],
 	plugins : [
 		"karma-webpack",
 		"karma-jasmine",
