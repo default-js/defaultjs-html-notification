@@ -54,6 +54,7 @@
 		"index.js",
 		"browser.js",
 		"src/**",
+		"dist/**",
 		"LICENSE",
 		"README.md"
 	]
